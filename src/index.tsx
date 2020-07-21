@@ -4,14 +4,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { ToastProvider } from 'react-toast-notifications';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ToastProvider autoDismissTimeout={2000}>
-      <App />
-    </ToastProvider>
+    <Router>
+      <ToastProvider autoDismissTimeout={2000}>
+        <App />
+      </ToastProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root'),
 );
