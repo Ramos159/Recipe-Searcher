@@ -4,11 +4,13 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import ConfirmModal from '../components/confirmModal';
 
 function IngredientListSearch() {
   // state hooks and functions
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [ingredientsList, setIngredientsList] = useState<Array<string>>([]);
+  const [showConfirmModal, setConfirmModal] = useState<boolean>(false);
   const { addToast } = useToasts();
 
   function handleSearchTermChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -17,41 +19,57 @@ function IngredientListSearch() {
   }
 
   function sanatizeSearchTerm(term: string) {
-    // const newTerm = plural(term);
-    const capitalizedTerm = term.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    // string doesnt contain numbers or weird letters
+    if (/^([a-z]+\s)*[a-z]+$/.test(term)) {
+      return term;
+    }
+    throw new Error();
+  }
 
-    return capitalizedTerm;
+  function makeStringFancy(string: string) {
+    return string.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   }
 
   // need to find the approriate typing for this event
   function handleIngredientAdd(e: any) {
     e.preventDefault();
 
-    const newIngredientsList = ingredientsList;
-    const sanitizedSearchTerm = sanatizeSearchTerm(searchTerm);
+    let term = searchTerm.toLowerCase();
     setSearchTerm('');
 
-    if (ingredientsList.includes(sanitizedSearchTerm)) {
+    const newIngredientsList = ingredientsList;
+
+    try {
+      term = sanatizeSearchTerm(term);
+    } catch (error) {
+      addToast('Please use plain letters in ingredient names! 😡', {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+      return;
+    }
+
+    if (ingredientsList.includes(term)) {
       addToast('No Duplicate Ingredients! 😡', {
         appearance: 'error',
         autoDismiss: true,
       });
     } else if (ingredientsList.length === 5) {
-      addToast('Only 5 ingredients are allowed for searching!', {
+      addToast(`Couldn't add ${makeStringFancy(term)}. Only 5 ingredients are allowed for searching! 😕`, {
         appearance: 'error',
         autoDismiss: true,
       });
     } else {
-      newIngredientsList.push(sanitizedSearchTerm);
+      newIngredientsList.push(term);
 
       try {
         setIngredientsList(newIngredientsList);
-        addToast('Ingredient added! 😄', {
+        addToast(`${makeStringFancy(term)} added! 😄`, {
           appearance: 'success',
           autoDismiss: true,
         });
       } catch (error) {
-        addToast('Ingredient could not be added! 😰', {
+        addToast(`${makeStringFancy(term)} could not be added! 😰`, {
           appearance: 'success',
           autoDismiss: true,
         });
@@ -73,7 +91,7 @@ function IngredientListSearch() {
             // why are array indexs bad?
             // eslint-disable-next-line react/no-array-index-key
             <ListGroup.Item key={index} variant="info">
-              {name}
+              {makeStringFancy(name)}
               <button style={{ float: 'right' }} type="button" className="btn btn-danger" onClick={() => { deleteIngredientFromList(name); }}>
                 Delete
               </button>
@@ -84,14 +102,44 @@ function IngredientListSearch() {
     );
   }
 
+  function closeConfirmModal() {
+    // eslint-disable-next-line no-console
+    console.log('used onclose()');
+    setConfirmModal(false);
+  }
+
+  function confirmConfirmModal() {
+    // eslint-disable-next-line no-console
+    console.log('do some confirming magic');
+    setConfirmModal(false);
+  }
+
+  function validateGetRecipesButton() {
+    if (ingredientsList.length > 0) {
+      setConfirmModal(true);
+    } else {
+      addToast('Your included ingredients list is empty. 🤨', {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
+  }
+
   return (
     <>
+      <ConfirmModal
+        visible={showConfirmModal}
+        onClose={closeConfirmModal}
+        onConfirm={confirmConfirmModal}
+        title="Confirming Ingredients"
+        body="Be sure all your ingredients are spelled correctly and are actual food ingredients. Don't mess around on my app 🤨"
+      />
       <Jumbotron fluid>
         <h2>
           Enter some ingredients below to create a list.
         </h2>
         <p>After adding ingredients, submit below to get recipes that use your ingredients.</p>
-        <Button variant="primary" type="button">Get Recipes</Button>
+        <Button variant="primary" type="button" onClick={validateGetRecipesButton}>Get Recipes</Button>
       </Jumbotron>
       <div className="ingredient-container">
         <div className="add-container">
@@ -103,7 +151,7 @@ function IngredientListSearch() {
             <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </div>
-        <div className="ingredient-list-container" style={{ minHeight: '400px' }}>
+        <div className="ingredient-list-container" style={{ minHeight: '350px' }}>
           {
             ingredientsList.length === 0
               ? <p>Add some Ingredients to get started!</p>

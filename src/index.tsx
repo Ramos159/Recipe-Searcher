@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <ToastProvider autoDismissTimeout={2000}>
+      <ToastProvider autoDismissTimeout={3000}>
         <App />
       </ToastProvider>
     </Router>
