@@ -1,16 +1,34 @@
 import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import Figure from 'react-bootstrap/figure';
 
 function About() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState<number>(0);
   const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
   };
 
+  function makeFigureCaption() {
+    switch (index) {
+      case 0:
+        return 'Typescript is actually the best. Why would I ever go back to plain JS?';
+      case 1:
+        return 'React is also pretty fun, and works nicely with typescript. Which is the best.';
+      case 2:
+        return 'I can not style or design for my life. Bootstrap saved my WebDev Career';
+      case 3:
+        return 'Node.js is pretty cool, But I gotta get on that Deno soon.';
+      case 4:
+        return 'Of course, shoutout to plain HTML5, CSS3, and JS. They work. Kinda.';
+      default:
+        return 'how the heck did you get here?';
+    }
+  }
+
   return (
     <>
       <br />
-      <Carousel interval={2000} activeIndex={index} onSelect={handleSelect}>
+      <Carousel interval={3000} activeIndex={index} onSelect={handleSelect}>
         <Carousel.Item>
           <img
             className="d-block w-100 img"
@@ -62,7 +80,26 @@ function About() {
             </p> */}
           </Carousel.Caption>
         </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://journocode.com/wp-content/uploads/2016/06/htmlCssJS-1140x515.jpg"
+            alt="Third slide"
+          />
+
+          <Carousel.Caption>
+            {/* <h3>Third slide label</h3>
+            <p>
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            </p> */}
+          </Carousel.Caption>
+        </Carousel.Item>
       </Carousel>
+      <Figure>
+        <Figure.Caption>
+          {makeFigureCaption()}
+        </Figure.Caption>
+      </Figure>
       <div style={{ textAlign: 'left', paddingLeft: '30px', paddingTop: '30px' }}>
         <blockquote className="blockquote">
           <p>

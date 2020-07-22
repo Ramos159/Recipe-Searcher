@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import {
@@ -11,6 +11,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
+  function getPageName(url: string) {
+    switch (url) {
+      case '/':
+        return 'Home';
+      case '/about':
+        return 'About';
+      default:
+        return '?';
+    }
+  }
+
+  useEffect(() => {
+    document.title = `Recipe Searcher - ${getPageName(window.location.pathname)}`;
+  });
+
   return (
     <div className="App">
       <Navbar bg="dark" variant="dark">
