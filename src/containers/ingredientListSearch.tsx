@@ -6,10 +6,16 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ConfirmModal from '../components/confirmModal';
 
-function IngredientListSearch() {
+type Props = {
+  ingredientsList: string[],
+  setIngredientsList: (arr: string[]) => void
+}
+
+function IngredientListSearch({
+  ingredientsList, setIngredientsList,
+}: Props) {
   // state hooks and functions
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [ingredientsList, setIngredientsList] = useState<Array<string>>([]);
   const [showConfirmModal, setConfirmModal] = useState<boolean>(false);
   const { addToast } = useToasts();
 
@@ -87,16 +93,18 @@ function IngredientListSearch() {
       <>
         <p>Included Ingredients:</p>
         <ListGroup variant="flush">
-          {ingredientsList.map((name, index) => (
+          { // eslint-disable-next-line react/prop-types
+            ingredientsList.map((name, index) => (
             // why are array indexs bad?
             // eslint-disable-next-line react/no-array-index-key
-            <ListGroup.Item key={index} variant="info">
-              {makeStringFancy(name)}
-              <button style={{ float: 'right' }} type="button" className="btn btn-danger" onClick={() => { deleteIngredientFromList(name); }}>
-                Delete
-              </button>
-            </ListGroup.Item>
-          ))}
+              <ListGroup.Item key={index} variant="info">
+                {makeStringFancy(name)}
+                <button style={{ float: 'right' }} type="button" className="btn btn-danger" onClick={() => { deleteIngredientFromList(name); }}>
+                  Delete
+                </button>
+              </ListGroup.Item>
+            ))
+          }
         </ListGroup>
       </>
     );

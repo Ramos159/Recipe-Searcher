@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import {
-  Route,
-  // RouteComponentProps,
-} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import IngredientListSearch from './containers/ingredientListSearch';
 import About from './containers/about';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,6 +19,8 @@ function App() {
     }
   }
 
+  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
+
   useEffect(() => {
     document.title = `Recipe Searcher - ${getPageName(window.location.pathname)}`;
   });
@@ -35,7 +34,7 @@ function App() {
           <Nav.Link href="/about">About</Nav.Link>
         </Nav>
       </Navbar>
-      <Route path="/" exact component={IngredientListSearch} />
+      <Route path="/" exact render={() => <IngredientListSearch ingredientsList={ingredientsList} setIngredientsList={setIngredientsList} />} />
       <Route path="/about" exact component={About} />
       <footer className="footer">
         <p>© Edwin J. Ramos, 2020</p>
