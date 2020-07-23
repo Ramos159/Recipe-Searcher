@@ -3,16 +3,14 @@ import Modal from 'react-bootstrap/modal';
 import Button from 'react-bootstrap/Button';
 
 type Props = {
-  visible: boolean,
-  onClose: () => void,
-  onConfirm: ()=> void,
-  title: string,
-  body: string,
-}
+  visible: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  title: string;
+  body: string;
+};
 
-function ConfirmModal({
-  visible, onClose, title, body, onConfirm,
-}: Props) {
+function ConfirmModal({ visible, onClose, title, body, onConfirm }: Props) {
   return (
     <Modal
       show={visible}
@@ -23,17 +21,19 @@ function ConfirmModal({
       centered
     >
       <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Recipe Searcher
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Recipe Searcher</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h4>{title}</h4>
         <p>{body}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>Close</Button>
-        <Button variant="primary" onClick={onConfirm}>Submit</Button>
+        <Button variant="secondary" onClick={onClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={onConfirm}>
+          Submit
+        </Button>
       </Modal.Footer>
     </Modal>
   );

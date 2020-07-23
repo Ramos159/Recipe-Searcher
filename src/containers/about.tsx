@@ -96,9 +96,7 @@ function About() {
         </Carousel.Item>
       </Carousel>
       <Figure>
-        <Figure.Caption>
-          {makeFigureCaption()}
-        </Figure.Caption>
+        <Figure.Caption>{makeFigureCaption()}</Figure.Caption>
       </Figure>
       <div style={{ textAlign: 'left', paddingLeft: '30px', paddingTop: '30px' }}>
         <blockquote className="blockquote">
@@ -111,8 +109,8 @@ function About() {
         <blockquote className="blockquote">
           <p>
             In an effort to rescue my paycheck from
-            <strong style={{ color: 'red' }}> viscous takeout app abuse</strong>
-            , i made this to see what i could make with the stuff in my kitchen.
+            <strong style={{ color: 'red' }}> viscous takeout app abuse</strong>, i made this to see
+            what i could make with the stuff in my kitchen.
           </p>
           <footer className="blockquote-footer">
             My famous last words before I ordered $30 of

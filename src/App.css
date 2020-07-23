@@ -2,50 +2,49 @@
   text-align: center;
 }
 
-
 .footer {
   padding-top: 25px;
   float: right;
   position: static;
-  bottom:0;
-  width:100%;
+  bottom: 0;
+  width: 100%;
   text-align: center;
   color: dodgerblue;
 }
 
-.ingredient-container{
-  display: block; 
+.ingredient-container {
+  display: block;
   padding-bottom: 50px;
 }
 
-.add-container{
+.add-container {
   width: 50%;
   padding-left: 2.5%;
   padding-right: 2.5%;
   float: left;
 }
 
-.ingredient-list-container{
+.ingredient-list-container {
   width: 50%;
   padding-left: 2.5%;
-  border-left: 1px solid #D3D3D3;
+  border-left: 1px solid #d3d3d3;
   padding-right: 2.5%;
   float: right;
 }
 
 img {
-  padding-left:5%;
-  padding-right:5%;
+  padding-left: 5%;
+  padding-right: 5%;
   height: 500px;
 }
 
-p{
-  font-family: Helvetica
+p {
+  font-family: Helvetica;
 }
 
 .donutSpinner {
   display: inline-block;
-  border: 4px solid hsl(222, 100%, 95%);;
+  border: 4px solid hsl(222, 100%, 95%);
   border-left-color: hsl(243, 80%, 62%);
   border-radius: 50%;
   width: 60px;
@@ -55,9 +54,9 @@ p{
 
 @keyframes donut-spin {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }

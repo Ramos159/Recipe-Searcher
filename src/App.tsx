@@ -34,7 +34,16 @@ function App() {
           <Nav.Link href="/about">About</Nav.Link>
         </Nav>
       </Navbar>
-      <Route path="/" exact render={() => <IngredientListSearch ingredientsList={ingredientsList} setIngredientsList={setIngredientsList} />} />
+      <Route
+        path="/"
+        exact
+        render={() => (
+          <IngredientListSearch
+            ingredientsList={ingredientsList}
+            setIngredientsList={setIngredientsList}
+          />
+        )}
+      />
       <Route path="/about" exact component={About} />
       <footer className="footer">
         <p>© Edwin J. Ramos, 2020</p>

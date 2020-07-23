@@ -7,13 +7,11 @@ import Form from 'react-bootstrap/Form';
 import ConfirmModal from '../components/confirmModal';
 
 type Props = {
-  ingredientsList: string[],
-  setIngredientsList: (arr: string[]) => void
-}
+  ingredientsList: string[];
+  setIngredientsList: (arr: string[]) => void;
+};
 
-function IngredientListSearch({
-  ingredientsList, setIngredientsList,
-}: Props) {
+function IngredientListSearch({ ingredientsList, setIngredientsList }: Props) {
   // state hooks and functions
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showConfirmModal, setConfirmModal] = useState<boolean>(false);
@@ -33,7 +31,10 @@ function IngredientListSearch({
   }
 
   function makeStringFancy(string: string) {
-    return string.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    return string
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
 
   // need to find the approriate typing for this event
@@ -61,10 +62,13 @@ function IngredientListSearch({
         autoDismiss: true,
       });
     } else if (ingredientsList.length === 5) {
-      addToast(`Couldn't add ${makeStringFancy(term)}. Only 5 ingredients are allowed for searching! 😕`, {
-        appearance: 'error',
-        autoDismiss: true,
-      });
+      addToast(
+        `Couldn't add ${makeStringFancy(term)}. Only 5 ingredients are allowed for searching! 😕`,
+        {
+          appearance: 'error',
+          autoDismiss: true,
+        }
+      );
     } else {
       newIngredientsList.push(term);
 
@@ -93,13 +97,21 @@ function IngredientListSearch({
       <>
         <p>Included Ingredients:</p>
         <ListGroup variant="flush">
-          { // eslint-disable-next-line react/prop-types
+          {
+            // eslint-disable-next-line react/prop-types
             ingredientsList.map((name, index) => (
-            // why are array indexs bad?
-            // eslint-disable-next-line react/no-array-index-key
+              // why are array indexs bad?
+              // eslint-disable-next-line react/no-array-index-key
               <ListGroup.Item key={index} variant="info">
                 {makeStringFancy(name)}
-                <button style={{ float: 'right' }} type="button" className="btn btn-danger" onClick={() => { deleteIngredientFromList(name); }}>
+                <button
+                  style={{ float: 'right' }}
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => {
+                    deleteIngredientFromList(name);
+                  }}
+                >
                   Delete
                 </button>
               </ListGroup.Item>
@@ -143,28 +155,36 @@ function IngredientListSearch({
         body="Be sure all your ingredients are spelled correctly and are actual food ingredients. Don't mess around on my app 🤨"
       />
       <Jumbotron fluid>
-        <h2>
-          Enter some ingredients below to create a list.
-        </h2>
+        <h2>Enter some ingredients below to create a list.</h2>
         <p>After adding ingredients, submit below to get recipes that use your ingredients.</p>
-        <Button variant="primary" type="button" onClick={validateGetRecipesButton}>Get Recipes</Button>
+        <Button variant="primary" type="button" onClick={validateGetRecipesButton}>
+          Get Recipes
+        </Button>
       </Jumbotron>
       <div className="ingredient-container">
         <div className="add-container">
           <p>Add an ingredient</p>
           <Form onSubmit={handleIngredientAdd}>
             <Form.Group>
-              <Form.Control size="lg" type="text" value={searchTerm} placeholder="Ingredient" onChange={handleSearchTermChange} />
+              <Form.Control
+                size="lg"
+                type="text"
+                value={searchTerm}
+                placeholder="Ingredient"
+                onChange={handleSearchTermChange}
+              />
             </Form.Group>
-            <Button variant="primary" type="submit">Submit</Button>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
           </Form>
         </div>
         <div className="ingredient-list-container" style={{ minHeight: '350px' }}>
-          {
-            ingredientsList.length === 0
-              ? <p>Add some Ingredients to get started!</p>
-              : makeIngredientItems()
-          }
+          {ingredientsList.length === 0 ? (
+            <p>Add some Ingredients to get started!</p>
+          ) : (
+            makeIngredientItems()
+          )}
         </div>
         <div />
       </div>
