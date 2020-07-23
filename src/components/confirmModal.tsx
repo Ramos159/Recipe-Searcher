@@ -10,7 +10,7 @@ type Props = {
   body: string;
 };
 
-function ConfirmModal({ visible, onClose, title, body, onConfirm }: Props) {
+export default function ConfirmModal({ visible, onClose, title, body, onConfirm }: Props) {
   return (
     <Modal
       show={visible}
@@ -38,5 +38,3 @@ function ConfirmModal({ visible, onClose, title, body, onConfirm }: Props) {
     </Modal>
   );
 }
-
-export default ConfirmModal;

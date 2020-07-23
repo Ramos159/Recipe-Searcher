@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Figure from 'react-bootstrap/figure';
 
-function About() {
+export default function About() {
   const [index, setIndex] = useState<number>(0);
   const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
@@ -121,5 +121,3 @@ function About() {
     </>
   );
 }
-
-export default About;

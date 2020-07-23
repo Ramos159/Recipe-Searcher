@@ -11,7 +11,7 @@ type Props = {
   setIngredientsList: (arr: string[]) => void;
 };
 
-function IngredientListSearch({ ingredientsList, setIngredientsList }: Props) {
+export default function IngredientListSearch({ ingredientsList, setIngredientsList }: Props) {
   // state hooks and functions
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showConfirmModal, setConfirmModal] = useState<boolean>(false);
@@ -37,8 +37,7 @@ function IngredientListSearch({ ingredientsList, setIngredientsList }: Props) {
       .join(' ');
   }
 
-  // need to find the approriate typing for this event
-  function handleIngredientAdd(e: any) {
+  function handleIngredientAdd(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
 
     let term = searchTerm.toLowerCase();
@@ -191,5 +190,3 @@ function IngredientListSearch({ ingredientsList, setIngredientsList }: Props) {
     </>
   );
 }
-
-export default IngredientListSearch;
