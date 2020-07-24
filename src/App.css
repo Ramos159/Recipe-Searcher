@@ -60,3 +60,16 @@ p {
     transform: rotate(360deg);
   }
 }
+
+.grid-container {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px 10px;
+  grid-template-areas: '. . . . .' '. . . . .';
+}
+
+img {
+  border-radius: 8px;
+}

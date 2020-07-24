@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-bootstrap/modal';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
 type Props = {
   visible: boolean;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
@@ -6,16 +7,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ConfirmModal from '../components/confirmModal';
 
-type Props = {
-  ingredientsList: string[];
-  setIngredientsList: (arr: string[]) => void;
-};
-
-export default function IngredientListSearch({ ingredientsList, setIngredientsList }: Props) {
+export default function IngredientListSearch() {
   // state hooks and functions
+  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showConfirmModal, setConfirmModal] = useState<boolean>(false);
   const { addToast } = useToasts();
+  const { push } = useHistory();
 
   function handleSearchTermChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.persist();
@@ -127,10 +125,40 @@ export default function IngredientListSearch({ ingredientsList, setIngredientsLi
     setConfirmModal(false);
   }
 
-  function confirmConfirmModal() {
-    // eslint-disable-next-line no-console
-    console.log('do some confirming magic');
-    setConfirmModal(false);
+  // async function testApi() {
+  //   const data = await response.json();
+  //   console.log(data);
+  //   // return data;
+  // }
+
+  function makeQueryString() {
+    let string = '';
+
+    ingredientsList.forEach((ingredient, index) => {
+      if (index === 0 && ingredientsList.length === 1) {
+        string += ingredient;
+      } else if (index === 0) {
+        string += ingredient + ',';
+      } else if (index === ingredientsList.length - 1) {
+        string += '+' + ingredient;
+      } else {
+        string += '+' + ingredient + ',';
+      }
+    });
+    return string;
+  }
+
+  async function confirmConfirmModal() {
+    try {
+      setConfirmModal(false);
+      push(`/recipeSearch/ingredients=${makeQueryString()}`);
+    } catch {
+      setConfirmModal(false);
+      addToast('something went wrong with getting recipes. try again later 😕', {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
   }
 
   function validateGetRecipesButton() {

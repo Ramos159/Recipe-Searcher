@@ -1,11 +1,11 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 
 type Props = {
   isNewUser?: boolean;
-  setUser: Dispatch<SetStateAction<undefined>>;
+  setUser: (user: User) => void;
 };
 
 export default function AuthContainer({ isNewUser, setUser }: Props) {

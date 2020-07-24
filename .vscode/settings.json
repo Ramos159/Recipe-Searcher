@@ -1,0 +1,6 @@
+{
+    "discord.workspaceExcludePatterns": [
+        "Recipe-Searcher"
+    ],
+    "discord.lowerDetailsNotFound": "{}"
+}

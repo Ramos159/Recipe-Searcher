@@ -7,10 +7,10 @@ import About from './containers/about';
 import AuthContainer from './containers/AuthContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import SearchResults from 'containers/SearchResults';
 
 export default function App() {
-  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User>(null);
 
   useEffect(() => {
     document.title = `Recipe Searcher - ${getPageName(window.location.pathname)}`;
@@ -62,19 +62,15 @@ export default function App() {
           {showRightSideNav()}
         </Navbar.Collapse>
       </Navbar>
-      <Route
-        path="/"
-        exact
-        render={() => (
-          <IngredientListSearch
-            ingredientsList={ingredientsList}
-            setIngredientsList={setIngredientsList}
-          />
-        )}
-      />
+      <Route path="/" exact render={() => <IngredientListSearch />} />
       <Route path="/login" exact render={() => <AuthContainer setUser={setUser} />} />
       <Route path="/register" exact render={() => <AuthContainer isNewUser setUser={setUser} />} />
       <Route path="/about" exact render={() => <About />} />
+      <Route
+        path="/recipeSearch/ingredients=:query"
+        exact
+        render={({ match }) => <SearchResults query={match.params.query} />}
+      />
       {/* <footer className="footer">
         <p>© Edwin J. Ramos, 2020</p>
       </footer> */}
