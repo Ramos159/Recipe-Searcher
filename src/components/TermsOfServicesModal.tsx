@@ -6,11 +6,9 @@ type Props = {
   visible: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  title: string;
-  body: string;
 };
 
-export default function ConfirmModal({ visible, onClose, title, body, onConfirm }: Props) {
+export default function ConfirmModal({ visible, onClose, onConfirm }: Props) {
   return (
     <Modal
       show={visible}
@@ -24,8 +22,11 @@ export default function ConfirmModal({ visible, onClose, title, body, onConfirm 
         <Modal.Title id="contained-modal-title-vcenter">Recipe Searcher</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>{title}</h4>
-        <p>{body}</p>
+        <h4>Terms of Service</h4>
+        <p>
+          by using this web app you hearby agree to not messing around on it or you'll swim with the
+          fishes, cappish? 🤨
+        </p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>

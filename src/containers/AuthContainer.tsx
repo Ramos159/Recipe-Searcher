@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TermsOfServiceModal from '../components/TermsOfServicesModal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -12,9 +13,11 @@ export default function AuthContainer({ isNewUser, setUser }: Props) {
   const [username, setUsername] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [showTermsOfServiceModal, setTermsOfServiceModal] = useState<boolean>(false);
+  const [TOSCheckbox, setTOSCheckbox] = useState<boolean>(false);
 
   function showTermsOfService() {
-    console.log('put a modal here');
+    setTermsOfServiceModal(true);
   }
 
   function handleFormChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -27,6 +30,14 @@ export default function AuthContainer({ isNewUser, setUser }: Props) {
     ) : (
       <Nav.Link href="/register">New User? Register here</Nav.Link>
     );
+  }
+
+  function validateCheckbox(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.checked) {
+      setTOSCheckbox(true);
+    } else {
+      setTOSCheckbox(false);
+    }
   }
 
   function returnNewUserFields() {
@@ -48,6 +59,8 @@ export default function AuthContainer({ isNewUser, setUser }: Props) {
         <Form.Group>
           <Form.Check
             type="checkbox"
+            checked={TOSCheckbox}
+            onChange={validateCheckbox}
             label={
               <p>
                 Agree to{' '}
@@ -77,6 +90,16 @@ export default function AuthContainer({ isNewUser, setUser }: Props) {
         borderRadius: '30px',
       }}
     >
+      <TermsOfServiceModal
+        visible={showTermsOfServiceModal}
+        onClose={() => {
+          setTermsOfServiceModal(false);
+        }}
+        onConfirm={() => {
+          setTermsOfServiceModal(false);
+          setTOSCheckbox(true);
+        }}
+      />
       <h1>{isNewUser ? 'Join us!' : 'Welcome back!'}</h1>
       <Form>
         <Form.Group as={Form.Row}>

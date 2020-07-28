@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import ConfirmModal from '../components/confirmModal';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function IngredientListSearch() {
   // state hooks and functions
