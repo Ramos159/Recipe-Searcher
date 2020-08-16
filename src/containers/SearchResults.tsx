@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Modal from 'react-bootstrap/modal';
 import Jumbotron from 'react-bootstrap/Jumbotron';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import ModalButton from 'react-bootstrap/Button';
+import CardColumns from 'react-bootstrap/CardColumns';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 type Props = {
   query: string;
@@ -77,39 +72,52 @@ export default function SearchResults({ query }: Props) {
 
   function completedRecipeCards() {
     return recipes.map((recipe) => (
+      // <Card>
+      //   <CardActionArea style={{ height: '90%' }}>
+      //     <CardMedia>
+      //       <img
+      //         src={recipe.image}
+      //         alt="recipe thumbnail"
+      //         style={{ width: '100%', height: '140px' }}
+      //       />
+      //     </CardMedia>
+      //     <CardContent>
+      //       <Typography gutterBottom variant="h5" component="h2">
+      //         {recipe.title}
+      //       </Typography>
+      //       {/* <Typography variant="body2" color="textSecondary" component="p">
+      //         Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+      //         across all continents except Antarctica
+      //       </Typography> */}
+      //     </CardContent>
+      //   </CardActionArea>
+      //   <CardActions>
+      //     {/* <Button size="small" color="primary">
+      //       Share
+      //     </Button> */}
+      //     <Button
+      //       size="large"
+      //       color="primary"
+      //       onClick={() => {
+      //         goToRecipePage(recipe.id);
+      //       }}
+      //     >
+      //       Recipe Page
+      //     </Button>
+      //   </CardActions>
+      // </Card>
       <Card>
-        <CardActionArea style={{ height: '90%' }}>
-          <CardMedia>
-            <img
-              src={recipe.image}
-              alt="recipe thumbnail"
-              style={{ width: '100%', height: '140px' }}
-            />
-          </CardMedia>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {recipe.title}
-            </Typography>
-            {/* <Typography variant="body2" color="textSecondary" component="p">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica
-            </Typography> */}
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          {/* <Button size="small" color="primary">
-            Share
-          </Button> */}
-          <Button
-            size="large"
-            color="primary"
-            onClick={() => {
-              goToRecipePage(recipe.id);
-            }}
-          >
-            Recipe Page
+        <Card.Img
+          style={{ width: '250px', height: '250px', objectFit: 'cover', marginTop: '15px' }}
+          variant="top"
+          src={recipe.image}
+        />
+        <Card.Body>
+          <Card.Title>{recipe.title}</Card.Title>
+          <Button variant="primary" onClick={() => goToRecipePage(recipe.id)}>
+            Recipe Details
           </Button>
-        </CardActions>
+        </Card.Body>
       </Card>
     ));
   }
@@ -135,9 +143,9 @@ export default function SearchResults({ query }: Props) {
           <p>{modalErrorMessage}</p>
         </Modal.Body>
         <Modal.Footer>
-          <ModalButton variant="primary" onClick={handleFailureModalClose}>
+          <Button variant="primary" onClick={handleFailureModalClose}>
             Go back to Ingredient Search
-          </ModalButton>
+          </Button>
         </Modal.Footer>
       </Modal>
       <Jumbotron>
@@ -147,7 +155,7 @@ export default function SearchResults({ query }: Props) {
       {loading ? (
         <div className="donutSpinner" />
       ) : (
-        <div className="grid-container">{completedRecipeCards()}</div>
+        <CardColumns className="grid-container">{completedRecipeCards()}</CardColumns>
       )}
     </div>
   );
