@@ -72,40 +72,6 @@ export default function SearchResults({ query }: Props) {
 
   function completedRecipeCards() {
     return recipes.map((recipe) => (
-      // <Card>
-      //   <CardActionArea style={{ height: '90%' }}>
-      //     <CardMedia>
-      //       <img
-      //         src={recipe.image}
-      //         alt="recipe thumbnail"
-      //         style={{ width: '100%', height: '140px' }}
-      //       />
-      //     </CardMedia>
-      //     <CardContent>
-      //       <Typography gutterBottom variant="h5" component="h2">
-      //         {recipe.title}
-      //       </Typography>
-      //       {/* <Typography variant="body2" color="textSecondary" component="p">
-      //         Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-      //         across all continents except Antarctica
-      //       </Typography> */}
-      //     </CardContent>
-      //   </CardActionArea>
-      //   <CardActions>
-      //     {/* <Button size="small" color="primary">
-      //       Share
-      //     </Button> */}
-      //     <Button
-      //       size="large"
-      //       color="primary"
-      //       onClick={() => {
-      //         goToRecipePage(recipe.id);
-      //       }}
-      //     >
-      //       Recipe Page
-      //     </Button>
-      //   </CardActions>
-      // </Card>
       <Card>
         <Card.Img
           style={{ width: '250px', height: '250px', objectFit: 'cover', marginTop: '15px' }}
@@ -128,8 +94,6 @@ export default function SearchResults({ query }: Props) {
         show={failureModalVisible}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
-        // backdrop="static"
-        // keyboard={false}
         centered
         onHide={handleFailureModalClose}
         backdrop="static"
