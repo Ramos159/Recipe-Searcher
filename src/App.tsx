@@ -1,35 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Route } from 'react-router-dom';
 import IngredientListSearch from './containers/IngredientListSearch';
 import About from './containers/About';
 import AuthContainer from './containers/AuthContainer';
+import SearchResults from './containers/SearchResults';
+import RecipePage from './containers/RecipePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import SearchResults from 'containers/SearchResults';
 
 export default function App() {
   const [user, setUser] = useState<User>(null);
-
-  useEffect(() => {
-    document.title = `Recipe Searcher - ${getPageName(window.location.pathname)}`;
-  });
-
-  function getPageName(url: string) {
-    switch (url) {
-      case '/':
-        return 'Home';
-      case '/about':
-        return 'About';
-      case '/login':
-        return 'Log in';
-      case '/register':
-        return 'Register';
-      default:
-        return '?';
-    }
-  }
 
   function showRightSideNav() {
     if (user) {
@@ -70,6 +52,11 @@ export default function App() {
         path="/recipeSearch/ingredients=:query"
         exact
         render={({ match }) => <SearchResults query={match.params.query} />}
+      />
+      <Route
+        path="/recipe/:query"
+        exact
+        render={({ match }) => <RecipePage recipeID={match.params.query} />}
       />
       {/* <footer className="footer">
         <p>© Edwin J. Ramos, 2020</p>

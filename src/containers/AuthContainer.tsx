@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TermsOfServiceModal from '../components/TermsOfServicesModal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
+import getPageName from 'helpers/getPageName';
 
 type Props = {
   isNewUser?: boolean;
@@ -15,6 +16,10 @@ export default function AuthContainer({ isNewUser, setUser }: Props) {
   const [password, setPassword] = useState<string>();
   const [showTermsOfServiceModal, setTermsOfServiceModal] = useState<boolean>(false);
   const [TOSCheckbox, setTOSCheckbox] = useState<boolean>(false);
+
+  useEffect(() => {
+    getPageName(window.location.pathname);
+  }, []);
 
   function showTermsOfService() {
     setTermsOfServiceModal(true);

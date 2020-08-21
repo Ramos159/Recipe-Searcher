@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -6,6 +6,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ConfirmModal from '../components/ConfirmModal';
+import getPageName from 'helpers/getPageName';
 
 export default function IngredientListSearch() {
   // state hooks and functions
@@ -14,6 +15,10 @@ export default function IngredientListSearch() {
   const [showConfirmModal, setConfirmModal] = useState<boolean>(false);
   const { addToast } = useToasts();
   const { push } = useHistory();
+
+  useEffect(() => {
+    getPageName(window.location.pathname);
+  }, []);
 
   function handleSearchTermChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.persist();

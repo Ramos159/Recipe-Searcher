@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import getPageName from '../helpers/getPageName';
 import Carousel from 'react-bootstrap/Carousel';
 import Figure from 'react-bootstrap/figure';
 
@@ -7,6 +8,10 @@ export default function About() {
   const handleSelect = (selectedIndex: number) => {
     setIndex(selectedIndex);
   };
+
+  useEffect(() => {
+    getPageName(window.location.pathname);
+  }, []);
 
   function makeFigureCaption() {
     switch (index) {

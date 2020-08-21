@@ -5,6 +5,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import CardColumns from 'react-bootstrap/CardColumns';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import getPageName from 'helpers/getPageName';
 
 type Props = {
   query: string;
@@ -41,6 +42,10 @@ export default function SearchResults({ query }: Props) {
       });
   }, []);
 
+  useEffect(() => {
+    getPageName(window.location.pathname);
+  }, []);
+
   function makeQueryString(query: string) {
     const firstPart = 'https://api.spoonacular.com/recipes/complexSearch?includeIngredients=';
     const secondPart = query;
@@ -67,20 +72,25 @@ export default function SearchResults({ query }: Props) {
   }
 
   function goToRecipePage(id: number) {
-    console.log(`going to recipe page with id: ${id}`);
+    push(`/recipe/${id}`);
   }
 
   function completedRecipeCards() {
     return recipes.map((recipe) => (
       <Card>
         <Card.Img
-          style={{ width: '250px', height: '250px', objectFit: 'cover', marginTop: '15px' }}
+          style={{ maxWidth: '250px', maxHeight: '250px', objectFit: 'scale-down' }}
           variant="top"
           src={recipe.image}
         />
         <Card.Body>
           <Card.Title>{recipe.title}</Card.Title>
-          <Button variant="primary" onClick={() => goToRecipePage(recipe.id)}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              goToRecipePage(recipe.id);
+            }}
+          >
             Recipe Details
           </Button>
         </Card.Body>
